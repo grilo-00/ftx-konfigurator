@@ -4,19 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FTX-konfigurator – hitta rätt ventilationssystem</title>
-<meta name="description" content="Gratis konfigurator som föreslår rätt FTX-/ventilationslösning för din villa, lägenhet eller lokal – med dimensionering och en transparent kostnadsuppskattning.">
+<meta name="description" content="Gratis konfigurator som föreslår rätt FTX-/ventilationslösning, dimensionerar aggregatet, uppskattar energibesparing och ger en transparent kostnadsbild. / Free FTX configurator.">
 <style>
-  :root{
-    --bg:#f4f7f8; --card:#ffffff; --ink:#13343b; --muted:#5b7178;
-    --brand:#0e7c86; --brand-dark:#0a5e66; --accent:#e8f3f4; --line:#dde7e9;
-    --good:#1f9d57; --warn:#c9821a;
-  }
+  :root{--bg:#f4f7f8;--card:#fff;--ink:#13343b;--muted:#5b7178;--brand:#0e7c86;--brand-dark:#0a5e66;--accent:#e8f3f4;--line:#dde7e9;--good:#1f9d57;--warn:#c9821a}
   *{box-sizing:border-box}
   body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
-  .wrap{max-width:880px;margin:0 auto;padding:24px 18px 64px}
-  header.hero{padding:28px 0 8px}
+  .wrap{max-width:880px;margin:0 auto;padding:18px 18px 64px}
+  .topbar{display:flex;justify-content:flex-end;padding-top:10px}
+  .lang{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:#fff}
+  .lang button{border:0;background:#fff;padding:6px 14px;font-size:.85rem;font-weight:600;color:var(--muted);cursor:pointer}
+  .lang button.active{background:var(--brand);color:#fff}
+  header.hero{padding:14px 0 8px}
   .hero h1{font-size:1.9rem;margin:0 0 8px;letter-spacing:-.01em}
-  .hero p{color:var(--muted);margin:0;font-size:1.05rem;max-width:60ch}
+  .hero p{color:var(--muted);margin:0;font-size:1.05rem;max-width:62ch}
   .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;margin-top:22px;box-shadow:0 1px 2px rgba(19,52,59,.04)}
   h2{font-size:1.15rem;margin:0 0 16px}
   .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px 18px}
@@ -27,18 +27,17 @@
   input:focus,select:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px var(--accent)}
   .badge{display:inline-block;font-size:.78rem;padding:3px 9px;border-radius:999px;background:var(--accent);color:var(--brand-dark);font-weight:600}
   .rec-head{font-size:1.35rem;font-weight:700;color:var(--brand-dark);margin:0 0 4px}
-  .results{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px}
-  @media(max-width:560px){.results{grid-template-columns:1fr}}
+  .results{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:14px}
+  @media(max-width:560px){.results{grid-template-columns:1fr 1fr}}
   .stat{background:var(--accent);border-radius:12px;padding:16px}
-  .stat .num{font-size:1.5rem;font-weight:700;color:var(--brand-dark);line-height:1.1}
-  .stat .unit{font-size:.9rem;color:var(--muted)}
-  .stat .lbl{font-size:.82rem;color:var(--muted);margin-top:6px}
+  .stat .num{font-size:1.4rem;font-weight:700;color:var(--brand-dark);line-height:1.1}
+  .stat .unit{font-size:.85rem;color:var(--muted)}
+  .stat .lbl{font-size:.8rem;color:var(--muted);margin-top:6px}
   ul.why{margin:14px 0 0;padding-left:18px}
   ul.why li{margin-bottom:6px}
   .note{font-size:.82rem;color:var(--muted);margin-top:14px}
   .cta{margin-top:22px;background:linear-gradient(135deg,var(--brand),var(--brand-dark));color:#fff;border-radius:14px;padding:22px 24px}
-  .cta h2{color:#fff;margin-bottom:6px}
-  .cta p{margin:0 0 14px;opacity:.92}
+  .cta h2{color:#fff;margin-bottom:6px}.cta p{margin:0 0 14px;opacity:.92}
   .cta a{display:inline-block;background:#fff;color:var(--brand-dark);text-decoration:none;font-weight:700;padding:11px 20px;border-radius:10px}
   .cta a:hover{background:#eafafa}
   footer{margin-top:30px;font-size:.8rem;color:var(--muted);text-align:center}
@@ -48,185 +47,166 @@
 <body>
 <div class="wrap">
 
+  <div class="topbar">
+    <div class="lang">
+      <button id="sv" class="active" onclick="setLang('sv')">SV</button>
+      <button id="en" onclick="setLang('en')">EN</button>
+    </div>
+  </div>
+
   <header class="hero">
-    <span class="badge">Gratis verktyg</span>
-    <h1>FTX-konfigurator</h1>
-    <p>Svara på några frågor om din fastighet så föreslår verktyget en lämplig ventilationslösning, dimensionerar aggregatet och ger en transparent kostnadsuppskattning.</p>
+    <span class="badge" data-t="badge">Gratis verktyg</span>
+    <h1 data-t="title">FTX-konfigurator</h1>
+    <p data-t="intro">Svara på några frågor om din fastighet så föreslår verktyget en lämplig ventilationslösning, dimensionerar aggregatet, uppskattar energibesparing och ger en transparent kostnadsbild.</p>
   </header>
 
   <section class="card">
-    <h2>1. Fastigheten</h2>
+    <h2 data-t="s1">1. Fastigheten</h2>
     <div class="grid">
-      <div>
-        <label>Typ av fastighet</label>
-        <select id="type">
-          <option value="villa" selected>Villa / radhus</option>
-          <option value="apartment">Lägenhet / BRF</option>
-          <option value="office">Kontor / lokal</option>
-        </select>
-      </div>
-      <div>
-        <label>Uppvärmd yta <span class="hint">m²</span></label>
-        <input id="area" type="number" min="0" value="140">
-      </div>
-      <div>
-        <label>Byggår / epok</label>
-        <select id="era">
-          <option value="pre1980">Före 1980</option>
-          <option value="1980_2005" selected>1980–2005</option>
-          <option value="post2005">Efter 2005</option>
-          <option value="new">Nybygge / totalrenovering</option>
-        </select>
-      </div>
-      <div>
-        <label>Antal våningsplan</label>
-        <input id="floors" type="number" min="1" value="2">
-      </div>
+      <div><label data-t="l_type">Typ av fastighet</label>
+        <select id="type"><option value="villa" data-t="o_villa">Villa / radhus</option><option value="apartment" data-t="o_apt">Lägenhet / BRF</option><option value="office" data-t="o_office">Kontor / lokal</option></select></div>
+      <div><label><span data-t="l_area">Uppvärmd yta</span> <span class="hint">m²</span></label><input id="area" type="number" min="0" value="140"></div>
+      <div><label data-t="l_era">Byggår / epok</label>
+        <select id="era"><option value="pre1980" data-t="o_pre">Före 1980</option><option value="1980_2005" selected data-t="o_mid">1980–2005</option><option value="post2005" data-t="o_post">Efter 2005</option><option value="new" data-t="o_new">Nybygge / totalrenovering</option></select></div>
+      <div><label data-t="l_floors">Antal våningsplan</label><input id="floors" type="number" min="1" value="2"></div>
     </div>
-
-    <h2 style="margin-top:22px">2. Dagens ventilation</h2>
+    <h2 style="margin-top:22px" data-t="s2">2. Dagens ventilation</h2>
     <div class="grid">
-      <div>
-        <label>Befintligt system</label>
-        <select id="current">
-          <option value="self" selected>Självdrag (S)</option>
-          <option value="exhaust">Frånluft (F / mekanisk frånluft)</option>
-          <option value="ftx">FTX (finns redan)</option>
-          <option value="none">Vet ej / saknas</option>
-        </select>
-      </div>
-      <div>
-        <label>Befintliga tilluftskanaler?</label>
-        <select id="ducts">
-          <option value="no" selected>Nej / osäkert</option>
-          <option value="yes">Ja</option>
-        </select>
-      </div>
-      <div>
-        <label>Antal våtrum + kök <span class="hint">frånluftsrum</span></label>
-        <input id="wet" type="number" min="0" value="4">
-      </div>
-      <div>
-        <label>Viktigast för dig</label>
-        <select id="goal">
-          <option value="energy" selected>Energibesparing</option>
-          <option value="air">Bättre inomhusluft</option>
-          <option value="budget">Låg investering</option>
-        </select>
-      </div>
+      <div><label data-t="l_cur">Befintligt system</label>
+        <select id="current"><option value="self" data-t="o_self">Självdrag (S)</option><option value="exhaust" data-t="o_exh">Frånluft (F / mekanisk frånluft)</option><option value="ftx" data-t="o_ftx">FTX (finns redan)</option><option value="none" data-t="o_none">Vet ej / saknas</option></select></div>
+      <div><label data-t="l_ducts">Befintliga tilluftskanaler?</label>
+        <select id="ducts"><option value="no" data-t="o_no">Nej / osäkert</option><option value="yes" data-t="o_yes">Ja</option></select></div>
+      <div><label><span data-t="l_wet">Antal våtrum + kök</span> <span class="hint" data-t="l_wet_h">frånluftsrum</span></label><input id="wet" type="number" min="0" value="4"></div>
+      <div><label data-t="l_goal">Viktigast för dig</label>
+        <select id="goal"><option value="energy" data-t="o_energy">Energibesparing</option><option value="air" data-t="o_air">Bättre inomhusluft</option><option value="budget" data-t="o_budget">Låg investering</option></select></div>
     </div>
-
-    <h2 style="margin-top:22px">3. Kostnadsantagande <span class="hint">justera vid behov</span></h2>
+    <h2 style="margin-top:22px"><span data-t="s3">3. Antaganden</span> <span class="hint" data-t="s3h">justera vid behov</span></h2>
     <div class="grid">
-      <div>
-        <label>Riktpris per m² <span class="hint">SEK, komplett installation</span></label>
-        <input id="rate" type="number" min="0" value="900">
-      </div>
+      <div><label><span data-t="l_rate">Riktpris per m²</span> <span class="hint" data-t="l_rate_h">SEK, komplett installation</span></label><input id="rate" type="number" min="0" value="900"></div>
+      <div><label><span data-t="l_eff">Värmeåtervinning</span> <span class="hint">%</span></label><input id="eff" type="number" min="0" max="95" value="80"></div>
+      <div><label><span data-t="l_dh">Gradtimmar</span> <span class="hint">K·h/år</span></label><input id="deghours" type="number" min="0" value="100000"></div>
+      <div><label><span data-t="l_price">Energipris</span> <span class="hint">SEK/kWh</span></label><input id="eprice" type="number" min="0" step="0.1" value="1.5"></div>
     </div>
   </section>
 
   <section class="card">
-    <h2>Rekommendation</h2>
+    <h2 data-t="rec">Rekommendation</h2>
     <p class="rec-head" id="recTitle">–</p>
     <p id="recSub" style="margin:0;color:var(--muted)"></p>
-
     <div class="results">
-      <div class="stat"><div class="num"><span id="flow">–</span></div><div class="unit">m³/h</div><div class="lbl">Dimensionerande flöde</div></div>
-      <div class="stat"><div class="num"><span id="cap">–</span></div><div class="unit">m³/h</div><div class="lbl">Aggregat – min. kapacitet</div></div>
-      <div class="stat"><div class="num"><span id="price">–</span></div><div class="unit">SEK</div><div class="lbl">Grov kostnadsuppskattning</div></div>
+      <div class="stat"><div class="num"><span id="flow">–</span></div><div class="unit">m³/h</div><div class="lbl" data-t="r_flow">Dimensionerande flöde</div></div>
+      <div class="stat"><div class="num"><span id="cap">–</span></div><div class="unit">m³/h</div><div class="lbl" data-t="r_cap">Aggregat – min.</div></div>
+      <div class="stat"><div class="num"><span id="kwh">–</span></div><div class="unit">kWh/år</div><div class="lbl" data-t="r_kwh">Återvunnen energi</div></div>
+      <div class="stat"><div class="num"><span id="price">–</span></div><div class="unit">SEK</div><div class="lbl" data-t="r_price">Kostnadsuppskattning</div></div>
     </div>
-
     <ul class="why" id="why"></ul>
     <p class="note" id="disclaimer"></p>
   </section>
 
   <section class="cta">
-    <h2>Vill du ha ett skarpt förslag och offert?</h2>
-    <p>Pureflow projekterar, installerar och injusterar kompletta FTX-system för villa, BRF, kontor och industri – med mätprotokoll före och efter.</p>
-    <a href="https://pureflow.nu/" target="_blank" rel="noopener">Kontakta Pureflow →</a>
+    <h2 data-t="cta_h">Vill du ha ett skarpt förslag och offert?</h2>
+    <p data-t="cta_p">Pureflow projekterar, installerar och injusterar kompletta FTX-system för villa, BRF, kontor och industri – med mätprotokoll före och efter.</p>
+    <a href="https://pureflow.nu/" target="_blank" rel="noopener" data-t="cta_a">Kontakta Pureflow →</a>
   </section>
 
   <footer>
-    Förslaget är vägledande och ersätter inte en projektering på plats. Kostnaden är en grov uppskattning baserad på ditt riktpris per m². ·
-    Verktyg framtaget med data från <a href="https://pureflow.nu/" target="_blank" rel="noopener">pureflow.nu</a>.
+    <span data-t="foot">Förslaget är vägledande och ersätter inte en projektering på plats. Kostnaden är en grov uppskattning baserad på ditt riktpris per m².</span>
+    · <span data-t="foot2">Verktyg framtaget med data från</span> <a href="https://pureflow.nu/" target="_blank" rel="noopener">pureflow.nu</a>.
   </footer>
-
 </div>
 
 <script>
-  const ids=["type","area","era","floors","current","ducts","wet","goal","rate"];
-  ids.forEach(id=>document.getElementById(id).addEventListener("input",calc));
-  function val(id){return document.getElementById(id).value;}
-  function num(id){const v=parseFloat(document.getElementById(id).value);return isNaN(v)?0:v;}
-  function fmt(n){return Math.round(n).toLocaleString("sv-SE");}
+const T={
+ sv:{badge:"Gratis verktyg",title:"FTX-konfigurator",intro:"Svara på några frågor om din fastighet så föreslår verktyget en lämplig ventilationslösning, dimensionerar aggregatet, uppskattar energibesparing och ger en transparent kostnadsbild.",
+  s1:"1. Fastigheten",l_type:"Typ av fastighet",o_villa:"Villa / radhus",o_apt:"Lägenhet / BRF",o_office:"Kontor / lokal",l_area:"Uppvärmd yta",l_era:"Byggår / epok",o_pre:"Före 1980",o_mid:"1980–2005",o_post:"Efter 2005",o_new:"Nybygge / totalrenovering",l_floors:"Antal våningsplan",
+  s2:"2. Dagens ventilation",l_cur:"Befintligt system",o_self:"Självdrag (S)",o_exh:"Frånluft (F / mekanisk frånluft)",o_ftx:"FTX (finns redan)",o_none:"Vet ej / saknas",l_ducts:"Befintliga tilluftskanaler?",o_no:"Nej / osäkert",o_yes:"Ja",l_wet:"Antal våtrum + kök",l_wet_h:"frånluftsrum",l_goal:"Viktigast för dig",o_energy:"Energibesparing",o_air:"Bättre inomhusluft",o_budget:"Låg investering",
+  s3:"3. Antaganden",s3h:"justera vid behov",l_rate:"Riktpris per m²",l_rate_h:"SEK, komplett installation",l_eff:"Värmeåtervinning",l_dh:"Gradtimmar",l_price:"Energipris",
+  rec:"Rekommendation",r_flow:"Dimensionerande flöde",r_cap:"Aggregat – min.",r_kwh:"Återvunnen energi",r_price:"Kostnadsuppskattning",
+  cta_h:"Vill du ha ett skarpt förslag och offert?",cta_p:"Pureflow projekterar, installerar och injusterar kompletta FTX-system för villa, BRF, kontor och industri – med mätprotokoll före och efter.",cta_a:"Kontakta Pureflow →",
+  foot:"Förslaget är vägledande och ersätter inte en projektering på plats. Kostnaden är en grov uppskattning baserad på ditt riktpris per m².",foot2:"Verktyg framtaget med data från",
+  self:"självdrag",exhaust:"frånluft",
+  disc:(low,high,rate,area)=>"Kostnadsspannet ("+low+"–"+high+" SEK) bygger på riktpriset "+rate+" SEK/m² × "+area+" m² ±20 %. Återvunnen energi är en förenklad uppskattning (0,33 Wh/(m³·K) × flöde × verkningsgrad × gradtimmar). Verkligt pris och besparing beror på kanaldragning, aggregatval och injustering – begär alltid en offert.",
+  R:{upgrade:{t:"Uppgradering / injustering av befintligt FTX",s:"Du har redan FTX – fokusera på injustering, filterbyte och eventuellt nyare aggregat med högre verkningsgrad.",w:["Mät nuvarande flöden och temperaturverkningsgrad innan beslut om byte.","Ett aggregat äldre än ~15 år har ofta lägre återvinning än dagens (80–90 %)."]},
+     decentral:{t:"Decentraliserat FTX (rumsvis återvinning)",s:"I lägenhet utan tilluftskanaler är decentraliserade FTX-don oftast enklast och minst ingrepp.",w:["Undviker omfattande kanaldragning i befintlig lägenhet.","Värmeåtervinning per rum – bra kompromiss när centralaggregat är svårt."]},
+     central:{t:"Centralt FTX-system med värmeåtervinning",s:"Med kanaldragning på plats (eller nybygge) ger ett centralt FTX bäst komfort och energiåtervinning.",w:["Återvinner 80–90 % av frånluftens värme.","Balanserad till- och frånluft ger jämn komfort och bra fuktstyrning."]},
+     switch:{t:"Byte till centralt FTX-system",s:"Att gå från {cur} till FTX återvinner värme och förbättrar luftkvaliteten.",w:["Störst energivinst kommer från att återvinna värme du idag ventilerar bort.","Kräver tilluftskanaler – räkna med kanaldragning i bjälklag/undertak.","FLOORS"]},
+     exhaust_first:{t:"Mekanisk frånluft (F) som första steg",s:"Vill du hålla nere investeringen kan mekanisk frånluft vara ett första steg, med FTX som senare uppgradering.",w:["Lägre investering än fullt FTX, men ingen värmeåtervinning.","Överväg frånluftsvärmepump för att ta vara på en del av värmen."]}},
+  floors:(n)=>"Med "+n+" plan, planera stamdragning och aggregatets placering tidigt."},
+ en:{badge:"Free tool",title:"FTX configurator",intro:"Answer a few questions about your property and the tool proposes a suitable ventilation solution, sizes the unit, estimates energy savings and gives a transparent cost picture.",
+  s1:"1. The property",l_type:"Property type",o_villa:"House / townhouse",o_apt:"Apartment / housing assoc.",o_office:"Office / premises",l_area:"Heated area",l_era:"Construction era",o_pre:"Before 1980",o_mid:"1980–2005",o_post:"After 2005",o_new:"New build / full renovation",l_floors:"Number of floors",
+  s2:"2. Current ventilation",l_cur:"Existing system",o_self:"Natural draught (S)",o_exh:"Exhaust (F / mechanical exhaust)",o_ftx:"FTX (already installed)",o_none:"Unknown / none",l_ducts:"Existing supply ducts?",o_no:"No / unsure",o_yes:"Yes",l_wet:"Wet rooms + kitchen",l_wet_h:"exhaust rooms",l_goal:"Most important to you",o_energy:"Energy savings",o_air:"Better indoor air",o_budget:"Low investment",
+  s3:"3. Assumptions",s3h:"adjust as needed",l_rate:"Reference price per m²",l_rate_h:"SEK, complete installation",l_eff:"Heat recovery",l_dh:"Degree-hours",l_price:"Energy price",
+  rec:"Recommendation",r_flow:"Design airflow",r_cap:"Unit – min.",r_kwh:"Recovered energy",r_price:"Cost estimate",
+  cta_h:"Want a concrete proposal and quote?",cta_p:"Pureflow designs, installs and balances complete FTX systems for homes, housing associations, offices and industry – with measurement protocols before and after.",cta_a:"Contact Pureflow →",
+  foot:"This proposal is indicative and does not replace an on-site design. The cost is a rough estimate based on your reference price per m².",foot2:"Tool built with data from",
+  self:"natural draught",exhaust:"exhaust ventilation",
+  disc:(low,high,rate,area)=>"The cost range ("+low+"–"+high+" SEK) is based on the reference price "+rate+" SEK/m² × "+area+" m² ±20%. Recovered energy is a simplified estimate (0.33 Wh/(m³·K) × airflow × efficiency × degree-hours). Actual price and savings depend on ductwork, unit choice and balancing – always request a quote.",
+  R:{upgrade:{t:"Upgrade / balancing of existing FTX",s:"You already have FTX – focus on balancing, filter changes and possibly a newer unit with higher efficiency.",w:["Measure current airflows and temperature efficiency before deciding on replacement.","A unit older than ~15 years often recovers less than today's (80–90%)."]},
+     decentral:{t:"Decentralised FTX (room-by-room recovery)",s:"In an apartment without supply ducts, decentralised FTX units are usually simplest and least invasive.",w:["Avoids extensive ductwork in an existing apartment.","Heat recovery per room – a good compromise when a central unit is hard."]},
+     central:{t:"Central FTX system with heat recovery",s:"With ducting in place (or a new build), a central FTX gives the best comfort and energy recovery.",w:["Recovers 80–90% of the exhaust air's heat.","Balanced supply and exhaust give even comfort and good humidity control."]},
+     switch:{t:"Switch to a central FTX system",s:"Moving from {cur} to FTX recovers heat and improves air quality.",w:["The biggest energy gain comes from recovering heat you currently ventilate away.","Requires supply ducts – expect ductwork in floors/ceilings.","FLOORS"]},
+     exhaust_first:{t:"Mechanical exhaust (F) as a first step",s:"To keep the investment down, mechanical exhaust can be a first step, with FTX as a later upgrade.",w:["Lower investment than full FTX, but no heat recovery.","Consider an exhaust-air heat pump to capture some of the heat."]}},
+  floors:(n)=>"With "+n+" floors, plan riser routing and unit placement early."}
+};
+let lang="sv";
+const ids=["type","area","era","floors","current","ducts","wet","goal","rate","eff","deghours","eprice"];
+ids.forEach(id=>document.getElementById(id).addEventListener("input",calc));
+function val(id){return document.getElementById(id).value;}
+function num(id){const v=parseFloat(document.getElementById(id).value);return isNaN(v)?0:v;}
+function nf(n){return Math.round(n).toLocaleString(lang==="sv"?"sv-SE":"en-US");}
 
-  function calc(){
-    const type=val("type"), area=num("area"), era=val("era"), floors=Math.max(num("floors"),1);
-    const current=val("current"), ducts=val("ducts"), wet=num("wet"), goal=val("goal"), rate=num("rate");
-
-    // Dimensionerande flöde: max(0,35 l/s·m², summa frånluft 10 l/s per våtrum/kök) -> m³/h
-    const perArea = 0.35*area;
-    const exhaust = wet*10;
-    const ls = Math.max(perArea, exhaust);
-    const m3h = ls*3.6;
-    const cap = Math.ceil((m3h*1.15)/25)*25;
-
-    // System-rekommendation
-    let title, sub, why=[];
-    const wantsHeatRecovery = (goal==="energy"||goal==="air");
-
-    if(current==="ftx"){
-      title="Uppgradering / injustering av befintligt FTX";
-      sub="Du har redan FTX – fokusera på injustering, filterbyte och eventuellt nyare aggregat med högre verkningsgrad.";
-      why.push("Mät nuvarande flöden och temperaturverkningsgrad innan beslut om byte.");
-      why.push("Ett aggregat äldre än ~15 år har ofta lägre återvinning än dagens (80–90 %).");
-    } else if(type==="apartment" && ducts==="no"){
-      title="Decentraliserat FTX (rumsvis återvinning)";
-      sub="I lägenhet utan tilluftskanaler är decentraliserade FTX-don oftast enklast och minst ingrepp.";
-      why.push("Undviker omfattande kanaldragning i befintlig lägenhet.");
-      why.push("Värmeåtervinning per rum – bra kompromiss när centralaggregat är svårt.");
-    } else if(era==="new" || ducts==="yes"){
-      title="Centralt FTX-system med värmeåtervinning";
-      sub="Med kanaldragning på plats (eller nybygge) ger ett centralt FTX bäst komfort och energiåtervinning.";
-      why.push("Återvinner 80–90 % av frånluftens värme.");
-      why.push("Balanserad till- och frånluft ger jämn komfort och bra fuktstyrning.");
-    } else if((current==="self"||current==="exhaust") && wantsHeatRecovery){
-      title="Byte till centralt FTX-system";
-      sub="Att gå från "+(current==="self"?"självdrag":"frånluft")+" till FTX återvinner värme och förbättrar luftkvaliteten.";
-      why.push("Störst energivinst kommer från att återvinna värme du idag ventilerar bort.");
-      why.push("Kräver tilluftskanaler – räkna med kanaldragning i bjälklag/undertak.");
-      if(floors>=2) why.push("Med "+floors+" plan, planera stamdragning och aggregatets placering tidigt.");
-    } else if(goal==="budget" && current==="self"){
-      title="Mekanisk frånluft (F) som första steg";
-      sub="Vill du hålla nere investeringen kan mekanisk frånluft vara ett första steg, med FTX som senare uppgradering.";
-      why.push("Lägre investering än fullt FTX, men ingen värmeåtervinning.");
-      why.push("Överväg frånluftsvärmepump för att ta vara på en del av värmen.");
-    } else {
-      title="Centralt FTX-system med värmeåtervinning";
-      sub="FTX är i regel den bästa helhetslösningen för luftkvalitet och energi.";
-      why.push("Balanserad ventilation med hög värmeåtervinning.");
-    }
-
-    // Kostnad
-    let baseRate = rate>0?rate:900;
-    if(title.indexOf("Decentraliserat")===0) baseRate*=0.7;          // mindre kanalarbete
-    if(title.indexOf("Mekanisk frånluft")===0) baseRate*=0.45;        // enklare system
-    if(title.indexOf("Uppgradering")===0) baseRate*=0.4;             // mest aggregat/injustering
-    if(ducts==="no" && title.indexOf("Centralt")===0) baseRate*=1.2; // ny kanaldragning fördyrar
-    const mid = baseRate*area;
-    const low = mid*0.8, high = mid*1.2;
-
-    document.getElementById("recTitle").textContent=title;
-    document.getElementById("recSub").textContent=sub;
-    document.getElementById("flow").textContent=fmt(m3h);
-    document.getElementById("cap").textContent=fmt(cap);
-    document.getElementById("price").textContent=fmt(low)+"–"+fmt(high);
-
-    document.getElementById("why").innerHTML=why.map(w=>`<li>${w}</li>`).join("");
-    document.getElementById("disclaimer").textContent=
-      "Kostnadsspannet ("+fmt(low)+"–"+fmt(high)+" SEK) bygger på riktpriset "+fmt(baseRate)+" SEK/m² × "+fmt(area)+" m² ±20 %. Verkligt pris beror på kanaldragning, aggregatval, tillgänglighet och injustering – begär alltid en offert.";
-  }
+function setLang(l){lang=l;document.documentElement.lang=l;
+  document.getElementById("sv").classList.toggle("active",l==="sv");
+  document.getElementById("en").classList.toggle("active",l==="en");
+  document.querySelectorAll("[data-t]").forEach(el=>{const k=el.getAttribute("data-t");if(T[l][k]!==undefined&&typeof T[l][k]==="string")el.textContent=T[l][k];});
   calc();
+}
+
+function pickKey(){
+  const type=val("type"),era=val("era"),current=val("current"),ducts=val("ducts"),goal=val("goal");
+  const wantsHR=(goal==="energy"||goal==="air");
+  if(current==="ftx")return "upgrade";
+  if(type==="apartment"&&ducts==="no")return "decentral";
+  if(era==="new"||ducts==="yes")return "central";
+  if((current==="self"||current==="exhaust")&&wantsHR)return "switch";
+  if(goal==="budget"&&current==="self")return "exhaust_first";
+  return "central";
+}
+
+function calc(){
+  const tr=T[lang];
+  const type=val("type"),area=num("area"),current=val("current"),ducts=val("ducts"),floors=Math.max(num("floors"),1);
+  const wet=num("wet");
+  const perArea=0.35*area, exhaust=wet*10, ls=Math.max(perArea,exhaust);
+  const m3h=ls*3.6, cap=Math.ceil((m3h*1.15)/25)*25;
+
+  const key=pickKey();
+  const r=tr.R[key];
+  let sub=r.s.replace("{cur}", current==="self"?tr.self:tr.exhaust);
+  let why=r.w.map(w=> w==="FLOORS"? (floors>=2? tr.floors(floors): null) : w).filter(Boolean);
+
+  // cost
+  let baseRate=num("rate")>0?num("rate"):900;
+  if(key==="decentral")baseRate*=0.7;
+  if(key==="exhaust_first")baseRate*=0.45;
+  if(key==="upgrade")baseRate*=0.4;
+  if(ducts==="no"&&key==="central")baseRate*=1.2;
+  const mid=baseRate*area, low=mid*0.8, high=mid*1.2;
+
+  // energy
+  const eff=Math.min(num("eff"),95)/100, dh=num("deghours");
+  const kwh=(key==="exhaust_first")?0:(0.33*m3h*eff*dh/1000);
+
+  document.getElementById("recTitle").textContent=r.t;
+  document.getElementById("recSub").textContent=sub;
+  document.getElementById("flow").textContent=nf(m3h);
+  document.getElementById("cap").textContent=nf(cap);
+  document.getElementById("kwh").textContent=nf(kwh);
+  document.getElementById("price").textContent=nf(low)+"–"+nf(high);
+  document.getElementById("why").innerHTML=why.map(w=>`<li>${w}</li>`).join("");
+  document.getElementById("disclaimer").textContent=tr.disc(nf(low),nf(high),nf(baseRate),nf(area));
+}
+setLang("sv");
 </script>
 </body>
 </html>
